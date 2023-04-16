@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Producto;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
-class ProductoController extends Controller
+class ProveedorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,13 +36,11 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //Intanciar el producto para poder utilizar atributos y guardar
-        $producto = new Producto;
-        $producto->nombre = $request->input('nombre');
-        $producto->descripcion = $request->input('descripcion');
-        $producto->precio = $request->input('precio');
-        $producto->proveedor_id = $request->proveedor_id;
-        $producto->save();
+        $proveedor = new Proveedor;
+        $proveedor->nombre = $request->input('nombre');
+        $proveedor->direccion = $request->input('direccion');
+        $proveedor->telefono = $request->input('telefono');
+        $proveedor->save();
 
         return response()->json(['message' => 'Proveedor creado con éxito'], 201);
     }
@@ -55,7 +53,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        return Producto::where('id', $id)->get();
+          return Proveedor::where('id', $id)->get();
     }
 
     /**

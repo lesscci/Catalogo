@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Ruta controlador de Productos
 Route::resource('productos', 'App\Http\Controllers\Api\ProductoController');
+
+Route::resource('proveedores', 'App\Http\Controllers\Api\ProveedorController');
