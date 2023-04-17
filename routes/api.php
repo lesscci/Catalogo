@@ -33,3 +33,4 @@ Route::resource('productos', 'App\Http\Controllers\Api\ProductoController');
 Route::resource('proveedores', 'App\Http\Controllers\Api\ProveedorController');
 
 
+
