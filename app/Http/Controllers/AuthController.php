@@ -14,7 +14,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8|confirmed'
         ]);
 
         $user = User::create([
@@ -46,7 +46,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer'
         ]);
-    }
+    }   
 
     public function infUser(Request $request)
     {

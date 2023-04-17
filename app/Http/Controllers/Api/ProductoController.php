@@ -36,16 +36,17 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //Intanciar el producto para poder utilizar atributos y guardar
+        // Instantiate the product to be able to use attributes and save
         $producto = new Producto;
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
         $producto->precio = $request->input('precio');
-        $producto->proveedor_id = $request->proveedor_id;
+        $producto->proveedor_id = $request->input('proveedor_id');
         $producto->save();
-
-        return response()->json(['message' => 'Proveedor creado con éxito'], 201);
+    
+        return response()->json(['message' => 'Producto creado con éxito'], 201);
     }
+    
 
     /**
      * Display the specified resource.

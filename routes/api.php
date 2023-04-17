@@ -33,4 +33,5 @@ Route::resource('productos', 'App\Http\Controllers\Api\ProductoController');
 Route::resource('proveedores', 'App\Http\Controllers\Api\ProveedorController');
 
 
+Route::put('/user', 'InfUserController@update')->middleware('auth:sanctum');
 
