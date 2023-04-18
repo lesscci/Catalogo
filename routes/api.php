@@ -25,4 +25,8 @@ Route::resource('productos', 'App\Http\Controllers\Api\ProductoController');
 //PROVEEDORES   
 Route::resource('proveedores', 'App\Http\Controllers\Api\ProveedorController');
 
+Route::get('/productos/{id}', 'ProductoController@show');
+Route::get('/api/productos/{id}', [ProductoController::class, 'show']);
+
+
 

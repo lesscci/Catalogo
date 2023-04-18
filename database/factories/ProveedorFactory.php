@@ -1,10 +1,10 @@
 <?php
 
-
 namespace Database\Factories;
 
 use App\Models\Proveedor;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Auth\User;
 
 class ProveedorFactory extends Factory
 {
@@ -25,7 +25,9 @@ class ProveedorFactory extends Factory
         return [
             'nombre' => $this->faker->company,
             'direccion' => $this->faker->address,
-            'telefono' => $this->faker->phoneNumber
+            'telefono' => $this->faker->phoneNumber,
+         
+            
         ];
     }
 }

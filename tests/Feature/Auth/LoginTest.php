@@ -10,9 +10,9 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_SI_login()
+    public function testUserSILogin()
     {
-        // Crear usuario 
+
         $user = User::factory()->create([
             'email' => 'ngomez.cep@gmail.com',
             'password' => bcrypt('password'),
@@ -31,7 +31,7 @@ class LoginTest extends TestCase
         ]);
     }
 
-    public function test_user_NO_login()
+    public function testUserNOLogin()
     {
         $user = User::factory()->create([
             'email' => 'ngomez.cep@gmail.com',

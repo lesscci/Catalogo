@@ -25,8 +25,8 @@ class ProductoFactory extends Factory
         return [
             'nombre' => $this->faker->word,
             'descripcion' => $this->faker->sentence,
-            'precio' => $this->faker->randomFloat(2, 1, 1000),
-            'proveedor_id' =>  Proveedor::factory()
+            'precio' => $this->faker->randomFloat(2, 1, 100),
+            'proveedor_id' =>  $proveedor->id
         ];
     }
 }

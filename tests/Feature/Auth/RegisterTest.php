@@ -10,9 +10,8 @@ class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_SI_register()
+    public function testUserSIRegistro()
     {
-        // Hacer una solicitud POST al endpoint de registro con credenciales válidas
         $response = $this->post('/api/register', [
             'name' => 'Natalie',
             'email' => 'ngomez.cep@gmail.com',
@@ -20,16 +19,14 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password'
         ]);
 
-        // Comprobar que la solicitud fue exitosa
         $response->assertStatus(200);
 
-        // Comprobar que se devuelve un token de acceso
         $response->assertJsonStructure([
             'access_token',
             'token_type',
         ]);
     }
-    public function test_register_missing()
+    public function testRegistroFaltaAlgo()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'Natalie',
@@ -42,7 +39,7 @@ class RegisterTest extends TestCase
         $response->assertJsonValidationErrors(['email']);
     }
 
-    public function test_register_invalid()
+    public function testRegistroInvalido()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'Natalie',
