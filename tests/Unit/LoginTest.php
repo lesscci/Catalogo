@@ -15,8 +15,9 @@ class AuthControllerTest extends TestCase
     public function testLoginValido()
     {
         $user = User::factory()->create([
-            'password' => bcrypt('password'),
-        ]);
+        'email' => 'ngomez.cep@gmail.com',
+        'password' => bcrypt('password'),
+    ]);
 
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
