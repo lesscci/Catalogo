@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class RegisterControllerTest extends TestCase
+class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -32,7 +32,7 @@ class RegisterControllerTest extends TestCase
     public function test_register_missing()
     {
         $response = $this->postJson('/api/register', [
-            'name' => 'John Doe',
+            'name' => 'Natalie',
             'email' => '',
             'password' => 'password',
             'password_confirmation' => 'password'
@@ -45,10 +45,10 @@ class RegisterControllerTest extends TestCase
     public function test_register_invalid()
     {
         $response = $this->postJson('/api/register', [
-            'name' => 'John Doe',
+            'name' => 'Natalie',
             'email' => 'invalid_email',
-            'password' => 'short',
-            'password_confirmation' => 'not_matching'
+            'password' => 'password',
+            'password_confirmation' => 'password2'
         ]);
 
         $response->assertStatus(422);

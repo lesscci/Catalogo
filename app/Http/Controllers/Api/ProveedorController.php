@@ -36,13 +36,14 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
+     
         $proveedor = new Proveedor;
         $proveedor->nombre = $request->input('nombre');
         $proveedor->direccion = $request->input('direccion');
         $proveedor->telefono = $request->input('telefono');
-        $proveedor->save();
 
-        return response()->json(['message' => 'Proveedor creado con éxito'], 201);
+        $proveedor->save();
+        return response()->json(['message' => 'Proveedor ' . $proveedor->nombre . ' creado con éxito'], 201);
     }
 
     /**
@@ -53,7 +54,7 @@ class ProveedorController extends Controller
      */
     public function show($id)
     {
-          return Proveedor::where('id', $id)->get();
+        return Proveedor::where('id', $id)->get();
     }
 
     /**
@@ -76,8 +77,29 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required'
+        ], [
+            'nombre.required' => 'El nombre es obligatorio',
+            'direccion.required' => 'La dirección es obligatoria',
+            'telefono.required' => 'El teléfono es obligatorio'
+        ]);
+    
+        $proveedor = Proveedor::findOrFail($id);
+
+        if (!$proveedor) {
+            return response()->json(['message' => 'Proveedor ' . $proveedor->nombre . ' no encontrado'], 404);
+        }
+        $proveedor->nombre = $request->input('nombre');
+        $proveedor->direccion = $request->input('direccion');
+        $proveedor->telefono = $request->input('telefono');
+        $proveedor->save();
+    
+        return response()->json(['message' => 'Proveedor ' . $proveedor->nombre . ' actualizado con éxito'], 200);
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -87,6 +109,15 @@ class ProveedorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+    
+        if (!$proveedor) {
+            return response()->json(['message' => 'Proveedor no encontrado'], 404);
+        }
+    
+        $proveedor->delete();
+    
+        return response()->json(['message' => 'Proveedor eliminado con éxito'], 200);
     }
+    
 }

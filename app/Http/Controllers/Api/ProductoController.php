@@ -79,7 +79,22 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+   
+        $producto = Producto::find($id);
+
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+
+        // Update product attributes
+        $producto->nombre = $request->input('nombre');
+        $producto->descripcion = $request->input('descripcion');
+        $producto->precio = $request->input('precio');
+        $producto->proveedor_id = $request->input('proveedor_id');
+        $producto->save();
+
+        // Return success response
+        return response()->json(['message' => 'Producto actualizado con éxito'], 200);
     }
 
     /**
@@ -90,10 +105,21 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+      
+        $producto = Producto::find($id);
+
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+    
+    
+        $producto->delete();
+    
+        return response()->json(['message' => 'Producto eliminado con éxito'], 200);
     }
-    public function __construct()
+    
+   /* public function __construct()
     {
         $this->middleware('auth:sanctum')->except('show');
-    }
+    }*/
 }
