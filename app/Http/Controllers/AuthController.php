@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Carrito;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed'
+            'password' => 'required|string|min:8'
         ]);
 
         $user = User::create([
@@ -24,7 +25,14 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
+ 
+ 
+        $carrito = new Carrito();
+        $carrito->user_id = $user->id;
+        $carrito->save();
 
+        $user->carrito_id = $carrito->id;
+$user->save();
         return response()->json([
             'message' => '****Usuario creado con éxito****',
             'access_token' => $token,
@@ -32,7 +40,7 @@ class AuthController extends Controller
             
         ]);
 
-        
+       
     }
 
     public function login(Request $request)
