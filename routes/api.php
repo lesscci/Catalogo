@@ -3,6 +3,8 @@
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Cart\CartController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -33,11 +35,12 @@ Route::resource('categories.buyers', 'App\Http\Controllers\Category\CategoryBuye
  * Productos
  */
 Route::resource('products', 'App\Http\Controllers\Product\ProductController', ['only' => ['index', 'show']]);
+Route::resource('products.transactions', 'App\Http\Controllers\Product\ProductTransactionController', ['only' => ['index']]);
 
 /**
  * Transaciones
  */
-Route::resource('transactions', 'App\Http\Controllers\Transaction\TransactionController', ['only' => ['index', 'show']]);
+Route::resource('transactions', 'App\Http\Controllers\Transaction\TransactionController', ['only' => ['index', 'show', 'store']]);
 Route::resource('transactions.categories', 'App\Http\Controllers\Transaction\TransactionCategoryController', ['only' => ['index']]);
 Route::resource('transactions.sellers', 'App\Http\Controllers\Transaction\TransactionSellerController', ['only' => ['index']]);
 
@@ -50,3 +53,21 @@ Route::resource('sellers', 'App\Http\Controllers\Seller\SellerController', ['onl
  * Usuarios
  */
 Route::resource('users', 'App\Http\Controllers\User\UserController', ['except' => ['create', 'edit']]);
+//Registro
+Route::post('/register',[AuthController::class, 'register']);
+//Login
+Route::post('/login', [AuthController::class,'login']);
+
+//infUser
+Route::post('/infUser', [AuthController::class,'infUser'])->Middleware('auth:sanctum');
+Route::post('/logout', [AuthController::class,'logout']);
+
+/**
+ * CART
+ */
+
+// Route::resource('carts', 'App\Http\Controllers\Cart\CartController', ['only' => ['store', 'show']]);
+//Route::resource('carts.products', 'App\Http\Controllers\Cart\CartProductController', ['only' => ['store', 'destroy']]);
+
+Route::post('/carts/add', [CartController::class, 'addToCart']);
+Route::delete('/carts/remove', [CartController::class, 'removeFromCart']);

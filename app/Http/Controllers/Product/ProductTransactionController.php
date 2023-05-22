@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Transaction;
+namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class TransactionController extends Controller
+class ProductTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transaction = Transaction::all();
+        $productId = $request->route('product');
+        $product = Product::findOrFail($productId);
+        $transactions = $product->transactions()->get;
 
-        return response()->json(['data' => $transaction], 200);
+        return response()->json(['data' => $transactions], 200);
     }
 
     /**
@@ -39,28 +40,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'quantity' => 'required|integer',
-            'buyer_id' => 'required|exists:buyers,id',
-            'product_id' => 'required|exists:products,id',
-        ]);
-
-        $product = Product::findOrFail($validatedData['product_id']);
-
-        if ($product->quantity < $validatedData['quantity']) {
-            return response()->json(['error' => 'No hay suficiente stock disponible'], 400);
-        }
-
-        $transaction = new Transaction();
-        $transaction->quantity = $validatedData['quantity'];
-        $transaction->buyer_id = $validatedData['buyer_id'];
-        $transaction->product_id = $validatedData['product_id'];
-        $transaction->save();
-
-        $product->quantity -= $validatedData['quantity'];
-        $product->save();
-
-        return response()->json(['data' => $transaction], 201);
+        //
     }
 
     /**
@@ -71,8 +51,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = Transaction::find($id);
-        return response()->json(['data' => $transaction], 200);
+        //
     }
 
     /**

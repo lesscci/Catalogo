@@ -27,11 +27,6 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
  
  
-        $carrito = new Carrito();
-        $carrito->user_id = $user->id;
-        $carrito->save();
-
-        $user->carrito_id = $carrito->id;
 $user->save();
         return response()->json([
             'message' => '****Usuario creado con éxito****',
