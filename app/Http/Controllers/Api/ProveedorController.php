@@ -15,7 +15,8 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $proveedor = Proveedor::all();
+        return response()->json($proveedor, 200);
     }
 
     /**
