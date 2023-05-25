@@ -21,7 +21,7 @@ class ProductFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function index()
     {
         return [
             'name' => $this->faker->word,
