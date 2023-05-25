@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\Producto;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,17 +44,17 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         // Instantiate the product to be able to use attributes and save
-        $producto = new Producto;
-        $producto->nombre = $request->input('nombre');
-        $producto->descripcion = $request->input('descripcion');
-        $producto->precio = $request->input('precio');
-        $producto->proveedor_id = $request->input('proveedor_id');
-        $producto->save();
+        $product = new Product;
+        $product->name = $request->input('nombre');
+        $product->description = $request->input('descripcion');
+        $product->price = $request->input('precio');
+        $product->proveedor_id = $request->input('proveedor_id');
+        $product->save();
     
         return response()->json(['message' => 'Producto creado con éxito'], 201);
     }
     
-
+    
     /**
      * Display the specified resource.
      *
