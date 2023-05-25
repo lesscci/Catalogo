@@ -19,7 +19,7 @@ class CreateTableProductos extends Migration
             $table->text('descripcion');
             $table->decimal('precio', 10, 2);
             $table->unsignedBigInteger('proveedor_id');
-            $table->foreign('proveedor_id')->references('id')->on('proveedores');
+            $table->foreign('proveedor_id')->references('id')->on('proveedores')->onDelete('cascade');
             $table->timestamps();
         });
     }
