@@ -86,23 +86,26 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-   
-        $producto = Producto::find($id);
-
-        if (!$producto) {
+        $product = Product::find($id);
+    
+        if (!$product) {
             return response()->json(['message' => 'Producto no encontrado'], 404);
         }
-
-        // Update product attributes
-        $producto->nombre = $request->input('nombre');
-        $producto->descripcion = $request->input('descripcion');
-        $producto->precio = $request->input('precio');
-        $producto->proveedor_id = $request->input('proveedor_id');
-        $producto->save();
-
-        // Return success response
+    
+        // Actualizar los atributos del producto
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->quantity = $request->input('quantity');
+        $product->status = $request->input('status');
+        $product->image = $request->input('image');
+        $product->seller_id = $request->input('seller_id');
+        $product->save();
+    
+        // Retornar una respuesta de éxito
         return response()->json(['message' => 'Producto actualizado con éxito'], 200);
     }
+    
 
     /**
      * Remove the specified resource from storage.
