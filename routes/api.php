@@ -35,9 +35,10 @@ Route::resource('categories.buyers', 'App\Http\Controllers\Category\CategoryBuye
  * Productos
  */
 Route::post('/products', 'App\Http\Controllers\Product\ProductController@store');
-Route::post('/products', 'App\Http\Controllers\Product\ProductController@update');
-Route::resource('products', 'App\Http\Controllers\Product\ProductController', ['only' => ['index', 'show']]);
-Route::resource('products.transactions', 'App\Http\Controllers\Product\ProductTransactionController', ['only' => ['index']]);
+Route::put('/products/{product}', 'App\Http\Controllers\Product\ProductController@update');
+Route::get('/products', 'App\Http\Controllers\Product\ProductController@index');
+Route::get('/products/{product}', 'App\Http\Controllers\Product\ProductController@show');
+Route::get('/products/{product}/transactions', 'App\Http\Controllers\Product\ProductTransactionController@index');
 
 /**
  * Transaciones
