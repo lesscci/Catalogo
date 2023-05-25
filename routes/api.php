@@ -36,7 +36,6 @@ Route::resource('categories.buyers', 'App\Http\Controllers\Category\CategoryBuye
  */
 Route::resource('products', 'App\Http\Controllers\Product\ProductController', ['only' => ['index', 'show']]);
 Route::resource('products.transactions', 'App\Http\Controllers\Product\ProductTransactionController', ['only' => ['index']]);
-Route::put('/productos/{id}', 'ProductoController@update');
 
 /**
  * Transaciones
