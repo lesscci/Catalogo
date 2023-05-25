@@ -71,3 +71,30 @@ Route::post('/logout', [AuthController::class,'logout']);
 
 Route::post('/carts/add', [CartController::class, 'addToCart']);
 Route::delete('/carts/remove', [CartController::class, 'removeFromCart']);
+
+
+//Registro
+Route::post('/register',[AuthController::class, 'register']);
+//Login
+Route::post('/login', [AuthController::class,'login']);
+//infUser
+Route::post('/infUser', [AuthController::class,'infUser'])->Middleware('auth:sanctum');
+Route::post('/logout', [AuthController::class,'logout']);
+
+
+//Ruta controlador de Productos
+//PROVEEDORES   
+Route::resource('proveedores', 'App\Http\Controllers\Api\ProveedorController');
+
+
+
+
+
+// Rutas para el controlador de Proveedor
+Route::get('/proveedores', [App\Http\Controllers\Api\ProveedorController::class, 'index'])->name('proveedores.index');
+Route::get('/proveedores/create', [App\Http\Controllers\Api\ProveedorController::class, 'create'])->name('proveedores.create');
+Route::post('/proveedores', [App\Http\Controllers\Api\ProveedorController::class, 'store'])->name('proveedores.store');
+Route::get('/proveedores/{proveedor}', [App\Http\Controllers\Api\ProveedorController::class, 'show'])->name('proveedores.show');
+Route::get('/proveedores/{proveedor}/edit', [App\Http\Controllers\Api\ProveedorController::class, 'edit'])->name('proveedores.edit');
+Route::put('/proveedores/{proveedor}', [App\Http\Controllers\Api\ProveedorController::class, 'update'])->name('proveedores.update');
+Route::delete('/proveedores/{proveedor}', [App\Http\Controllers\Api\ProveedorController::class, 'destroy'])->name('proveedores.destroy');

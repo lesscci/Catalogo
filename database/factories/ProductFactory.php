@@ -30,7 +30,7 @@ class ProductFactory extends Factory
             'status' => $this->faker->randomElement([Product::PRODUCTO_DISPONIBLE, Product::PRODUCTO_NO_DISPONIBLE]),
             'image' =>$this->faker->randomElement(['1.jpg', '2.jpg', '3.jpg']),
             'seller_id' => User::pluck('id')->random(),
-
+            'price' =>$this->faker->numberBetween(1, 50),
         ];
     }
 }

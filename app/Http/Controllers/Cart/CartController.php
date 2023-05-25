@@ -1,18 +1,18 @@
 <?php
-
 namespace App\Http\Controllers\Cart;
 
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
         $productId = $request->input('product_id');
-        $quantity = $request->input('quantity');
+        $selectedUnits = $request->input('selected_units');
 
         $product = Product::find($productId);
 
@@ -20,20 +20,20 @@ class CartController extends Controller
             return response()->json(['message' => 'Product not found'], 404);
         }
 
-        $cartItem = Cart::where('user_id', '1')
+        $cartItem = Cart::where('user_id', Auth::id())
             ->where('product_id', $productId)
             ->first();
 
         if ($cartItem) {
-            // If the item already exists in the cart, update the quantity
-            $cartItem->unidades += $quantity;
+            // If the item already exists in the cart, update the selected units
+            $cartItem->selected_units = $selectedUnits;
             $cartItem->save();
         } else {
             // Create a new cart item
             $cartItem = new Cart([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'product_id' => $productId,
-                'unidades' => $quantity,
+                'selected_units' => $selectedUnits,
             ]);
             $cartItem->save();
         }
@@ -45,7 +45,7 @@ class CartController extends Controller
     {
         $cartItemId = $request->input('cart_item_id');
 
-        $cartItem = Cart::where('user_id', auth()->id())
+        $cartItem = Cart::where('user_id', Auth::id())
             ->where('id', $cartItemId)
             ->first();
 
