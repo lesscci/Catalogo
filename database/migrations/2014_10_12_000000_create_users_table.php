@@ -20,7 +20,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->unsignedInteger('purchases_count')->default(0);
             $table->timestamps();
+
         });
     }
 
@@ -32,5 +34,8 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('purchases_count');
+        });
     }
 }
