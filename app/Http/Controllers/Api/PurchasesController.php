@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Purcharse;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 
 class PurchasesController extends Controller
