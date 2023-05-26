@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\PurchasesController;
-use App\Http\Controllers\Api\InfUserController;
 use App\Http\Controllers\Api\ProductoController;
 use App\Http\Controllers\Api\ProveedorController;
 
@@ -18,7 +17,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 // infUser
-Route::post('/infUser', [InfUserController::class, 'infUser'])->middleware('auth:sanctum');
 Route::post('/logout', [AuthController::class, 'logout']);
 
 // Rutas controlador de Productos
