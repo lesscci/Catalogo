@@ -15,8 +15,8 @@ class PurchasesController extends Controller
      */
     public function index()
     {
-        $purcharse = Purcharse::all();
-        return response()->json($purcharse, 200);
+        $purchase = Purchase::all();
+        return response()->json($purchase, 200);
     }
 
     /**
